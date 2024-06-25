@@ -1,3 +1,7 @@
+// <copyright file="WeatherForecast.cs" company="Bumindu Yasith">
+// Copyright (c) Bumindu Yasith. All rights reserved.
+// </copyright>
+
 namespace AzureApplicationInsights
 {
     public class WeatherForecast

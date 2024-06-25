@@ -1,31 +1,40 @@
-using Microsoft.AspNetCore.Mvc;
+// <copyright file="WeatherForecastController.cs" company="Bumindu Yasith">
+// Copyright (c) Bumindu Yasith. All rights reserved.
+// </copyright>
 
 namespace AzureApplicationInsights.Controllers
 {
+    using System.Security.Cryptography;
+    using Microsoft.AspNetCore.Mvc;
+
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching",
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<WeatherForecastController> logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
+            logger.LogInformation("GetWeatherForecast");
+#pragma warning restore CA1848 // Use the LoggerMessage delegates
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                TemperatureC = RandomNumberGenerator.GetInt32(-20, 55),
+                Summary = Summaries[RandomNumberGenerator.GetInt32(Summaries.Length)],
             })
             .ToArray();
         }
