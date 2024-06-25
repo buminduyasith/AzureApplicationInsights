@@ -28,6 +28,7 @@ namespace AzureApplicationInsights.Controllers
         {
 #pragma warning disable CA1848 // Use the LoggerMessage delegates
             logger.LogInformation("GetWeatherForecast");
+            logger.LogInformation("remove this log");
 #pragma warning restore CA1848 // Use the LoggerMessage delegates
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
