@@ -8,7 +8,7 @@ namespace AzureApplicationInsights.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -26,18 +26,19 @@ namespace AzureApplicationInsights.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-#pragma warning disable CA1848 // Use the LoggerMessage delegates
             logger.LogInformation("GetWeatherForecast");
-            logger.LogInformation("remove this log");
-#pragma warning restore CA1848 // Use the LoggerMessage delegates
 
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = RandomNumberGenerator.GetInt32(-20, 55),
                 Summary = Summaries[RandomNumberGenerator.GetInt32(Summaries.Length)],
             })
             .ToArray();
+
+            logger.LogInformation("weather forecast daa {@Data}", data);
+
+            return data;
         }
     }
 }

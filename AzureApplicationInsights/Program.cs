@@ -3,13 +3,24 @@
 // </copyright>
 namespace AzureApplicationInsights
 {
+    using Serilog;
+
     public static class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Configuration.AddEnvironmentVariables();
+
             builder.Services.AddControllers();
+
+            builder.Host.UseSerilog((context, loggerConfig) =>
+            {
+                loggerConfig.ReadFrom.Configuration(context.Configuration);
+            });
+
+            Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
 
             builder.Services.AddEndpointsApiExplorer();
 
