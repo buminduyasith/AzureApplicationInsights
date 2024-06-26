@@ -1,6 +1,7 @@
 // <copyright file="Program.cs" company="Bumindu Yasith">
 // Copyright (c) Bumindu Yasith. All rights reserved.
 // </copyright>
+#pragma warning disable
 namespace AzureApplicationInsights
 {
     using Serilog;
@@ -14,11 +15,11 @@ namespace AzureApplicationInsights
             builder.Configuration.AddEnvironmentVariables();
 
             builder.Services.AddControllers();
-
+/*
             builder.Host.UseSerilog((context, loggerConfig) =>
             {
                 loggerConfig.ReadFrom.Configuration(context.Configuration);
-            });
+            });*/
 
             Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
 
