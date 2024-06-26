@@ -15,11 +15,11 @@ namespace AzureApplicationInsights
             builder.Configuration.AddEnvironmentVariables();
 
             builder.Services.AddControllers();
-/*
+
             builder.Host.UseSerilog((context, loggerConfig) =>
             {
                 loggerConfig.ReadFrom.Configuration(context.Configuration);
-            });*/
+            });
 
             Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
 
