@@ -242,6 +242,9 @@ dotnet_diagnostic.CS1591.severity = none
 # S6966: Awaitable method should be used
 dotnet_diagnostic.S6966.severity = none
 
+# CA1848: Use the LoggerMessage delegates
+dotnet_diagnostic.CA1848.severity = none
+
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4
