@@ -40,5 +40,27 @@ namespace AzureApplicationInsights.Controllers
 
             return data;
         }
+
+        [HttpGet("byId", Name = "GetWeatherForecastById")]
+        public ActionResult<WeatherForecast> GetById([FromQuery] int id)
+        {
+            #pragma warning disable
+            logger.LogInformation("GetWeatherForecastById with id {Id}", id);
+
+            if (id == 0) 
+            { 
+                throw new Exception("id shuold not be zero");
+            }
+
+            var data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = RandomNumberGenerator.GetInt32(-20, 55),
+                Summary = Summaries[RandomNumberGenerator.GetInt32(Summaries.Length)],
+            })
+             .ToArray();
+
+            return da;
+        }
     }
 }
