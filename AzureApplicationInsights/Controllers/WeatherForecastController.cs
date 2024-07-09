@@ -60,7 +60,7 @@ namespace AzureApplicationInsights.Controllers
             })
              .ToArray();
 
-            return da;
+            return data[id];
         }
     }
 }
