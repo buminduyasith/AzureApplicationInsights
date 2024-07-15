@@ -4,6 +4,7 @@
 #pragma warning disable
 namespace AzureApplicationInsights
 {
+    using Microsoft.Extensions.Configuration;
     using Serilog;
 
     public static class Program
@@ -14,14 +15,21 @@ namespace AzureApplicationInsights
 
             builder.Configuration.AddEnvironmentVariables();
 
+            builder.Logging.AddAzureWebAppDiagnostics();
+
+            var connectionString = builder.Configuration["AzureMetaData:ApplicationInsights"];
+
+            Console.WriteLine(connectionString);
+
+            builder.Logging.AddApplicationInsights(
+                 configureTelemetryConfiguration: (config) =>
+                 {
+                     config.ConnectionString = connectionString;
+                 },
+                        configureApplicationInsightsLoggerOptions: (options) => { }
+            );
+
             builder.Services.AddControllers();
-
-            builder.Host.UseSerilog((context, loggerConfig) =>
-            {
-                loggerConfig.ReadFrom.Configuration(context.Configuration);
-            });
-
-            Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
 
             builder.Services.AddEndpointsApiExplorer();
 
